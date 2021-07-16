@@ -8,15 +8,10 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
-
 # gem 'redis', '~> 4.0'
-
 # gem 'bcrypt', '~> 3.1.7'
-
 # gem 'mini_magick', '~> 4.8'
-
 # gem 'capistrano-rails', group: :development
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
