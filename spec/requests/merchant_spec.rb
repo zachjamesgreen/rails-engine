@@ -18,6 +18,7 @@ RSpec.describe 'Merchants API' do
     get_merchant merchant.id
     expect(@body.has_key?(:data)).to be true
     expect(@body[:data].has_key?(:id)).to be true
+    expect(data['id']).to be_instance_of String
     expect(@body[:data].has_key?(:type)).to be true
     expect(@body[:data].has_key?(:attributes)).to be true
     expect(@body[:data][:attributes].has_key?(:name)).to be true

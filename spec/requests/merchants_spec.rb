@@ -18,6 +18,7 @@ RSpec.describe 'Merchants API' do
     expect(@body.has_key?(:data)).to be true
     body = @body[:data][0]
     expect(body.has_key?(:id)).to be true
+    expect(data['id']).to be_instance_of String
     expect(body.has_key?(:type)).to be true
     expect(body.has_key?(:attributes)).to be true
     expect(body[:attributes].has_key?(:name)).to be true
