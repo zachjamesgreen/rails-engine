@@ -12,8 +12,8 @@ RSpec.describe 'Item API' do
     attrs = body['data']['attributes']
     expect(attrs['name']).to eq item.name.to_s
     expect(attrs['description']).to eq item.description
-    expect(attrs['unit-price']).to eq item.unit_price
-    expect(attrs['merchant-id']).to eq item.merchant_id
+    expect(attrs['unit_price']).to eq item.unit_price
+    expect(attrs['merchant_id']).to eq item.merchant_id
   end
 
   it 'returns a 404 if the item does not exist' do

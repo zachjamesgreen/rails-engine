@@ -23,9 +23,9 @@ RSpec.describe 'Items API' do
     attrs = data['attributes']
     expect(attrs.has_key?('name')).to be true
     expect(attrs.has_key?('description')).to be true
-    expect(attrs.has_key?('unit-price')).to be true
-    expect(attrs['unit-price']).to be_instance_of Float
-    expect(attrs.has_key?('merchant-id')).to be true
+    expect(attrs.has_key?('unit_price')).to be true
+    expect(attrs['unit_price']).to be_instance_of Float
+    expect(attrs.has_key?('merchant_id')).to be true
   end
 
   it 'returns 20 items' do

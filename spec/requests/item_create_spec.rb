@@ -49,7 +49,7 @@ RSpec.describe 'Create Item API' do
     item = Item.find(body['data']['id'])
     expect(body['data']['attributes']['name']).to eq item.name
     expect(body['data']['attributes']['description']).to eq item.description
-    expect(body['data']['attributes']['unit-price']).to eq item.unit_price
-    expect(body['data']['attributes']['merchant-id']).to eq item.merchant_id
+    expect(body['data']['attributes']['unit_price']).to eq item.unit_price
+    expect(body['data']['attributes']['merchant_id']).to eq item.merchant_id
   end
 end

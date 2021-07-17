@@ -59,8 +59,8 @@ RSpec.describe 'Edit Item API' do
     expect(body['data']['id']).to eq @item.id.to_s
     expect(body['data']['attributes']['name']).to eq 'test edit'
     expect(body['data']['attributes']['description']).to eq 'test description'
-    expect(body['data']['attributes']['unit-price']).to eq 1000.0
-    expect(body['data']['attributes']['merchant-id']).to eq merchant.id
-    expect(body['data']['attributes']['merchant-id']).to_not eq @item.merchant_id
+    expect(body['data']['attributes']['unit_price']).to eq 1000.0
+    expect(body['data']['attributes']['merchant_id']).to eq merchant.id
+    expect(body['data']['attributes']['merchant_id']).to_not eq @item.merchant_id
   end
 end
