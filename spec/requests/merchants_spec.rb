@@ -16,12 +16,12 @@ RSpec.describe 'Merchants API' do
   it 'has correct attributes' do
     get_merchants
     expect(@body.has_key?(:data)).to be true
-    body = @body[:data][0]
-    expect(body.has_key?(:id)).to be true
-    expect(data['id']).to be_instance_of String
-    expect(body.has_key?(:type)).to be true
-    expect(body.has_key?(:attributes)).to be true
-    expect(body[:attributes].has_key?(:name)).to be true
+    data = @body[:data][0]
+    expect(data.has_key?(:id)).to be true
+    expect(data[:id]).to be_instance_of String
+    expect(data.has_key?(:type)).to be true
+    expect(data.has_key?(:attributes)).to be true
+    expect(data[:attributes].has_key?(:name)).to be true
   end
 
   it 'returns 20 merchants' do

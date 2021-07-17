@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchants API' do
+RSpec.describe 'Merchants Items API' do
   before(:all) do
     @merchants = create_list(:merchant, 2)
     @merchants.first.items << create_list(:item, 5, merchant: @merchants.first)
@@ -14,8 +14,9 @@ RSpec.describe 'Merchants API' do
     expect(body.has_key?(:data)).to be true
     data = body[:data]
     expect(data[0].has_key?(:id)).to be true
-    expect(data['id']).to be_instance_of String
+    expect(data[0][:id]).to be_instance_of String
     expect(data[0].has_key?(:type)).to be true
+    expect(data[0][:type]).to eq 'item'
     expect(data[0].has_key?(:attributes)).to be true
     attrs = data[0][:attributes]
     expect(attrs.has_key?(:name)).to be true
