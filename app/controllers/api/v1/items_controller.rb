@@ -1,6 +1,8 @@
 class Api::V1::ItemsController < ApplicationController
   def index
-    items = Item.all
+    page = params[:page].to_i == 0 ? 1 : params[:page].to_i
+    per_page = params[:per_page].to_i == 0 ? 20 : params[:per_page].to_i
+    items = Item.page(page).per(per_page)
     render json: items
   end
 
