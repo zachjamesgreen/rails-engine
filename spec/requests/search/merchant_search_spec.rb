@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchant Search API' do
-  before(:all) { @merchant = create(:merchant, name`:` 'blades serrated') }
+  before(:all) { @merchant = create(:merchant, name: 'blades serrated') }
   it "finds merchant with 'ser'" do
     get '/api/v1/merchants/find', params: { name: 'ser' }
     expect(response.status).to eq(200)
