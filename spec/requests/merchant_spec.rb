@@ -36,7 +36,6 @@ RSpec.describe 'Merchants API' do
     get '/api/v1/merchants/0'
     expect(response).to be_not_found
     body = JSON.parse(response.body, symbolize_names: true)
-    require 'pry'; binding.pry
     expect(body[:message]).to eq 'Not Found'
     expect(body[:errors]).to match_array ['Could not find Merchant by this id => 0']
   end
