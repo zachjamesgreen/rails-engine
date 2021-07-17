@@ -11,7 +11,6 @@ RSpec.describe 'Items API' do
     @body = JSON.parse(response.body)
   end
   
-
   it 'returns items in the correct format' do
     get_items
     expect(@body.has_key?('data')).to be true

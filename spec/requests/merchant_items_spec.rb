@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchants Items API' do
+RSpec.describe 'Merchant Items API' do
   before(:all) do
     @merchants = create_list(:merchant, 2)
     @merchants.first.items << create_list(:item, 5, merchant: @merchants.first)
