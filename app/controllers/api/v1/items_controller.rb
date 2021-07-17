@@ -18,13 +18,15 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
-    ap item_params
-    # item = Item.new(item_params)
-    # if item.save
-    #   render json: item
-    # else
-    #   render json: {errors: item.errors}, status: 422
-    # end
+    item = Item.new(item_params)
+    if item.save
+      render json: item, status: 201
+    else
+      render json: {
+        message: 'Invalid',
+        errors: item.errors.map { |attr, msg| msg }
+      }, status: 422
+    end
   end
 
   def update
