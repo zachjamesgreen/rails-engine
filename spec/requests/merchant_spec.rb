@@ -13,18 +13,6 @@ RSpec.describe 'Merchant API' do
     @body = JSON.parse(response.body)
   end
 
-  it 'has correct format' do
-    merchant = @merchants.first
-    get_merchant merchant.id
-    expect(@body.has_key?('data')).to be true
-    data = @body['data']
-    expect(data.has_key?('id')).to be true
-    expect(data['id']).to be_instance_of String
-    expect(data.has_key?('type')).to be true
-    expect(data.has_key?('attributes')).to be true
-    expect(data['attributes'].has_key?('name')).to be true
-  end
-
   it 'returns one merchant' do
     merchant = @merchants.first
     get_merchant merchant.id

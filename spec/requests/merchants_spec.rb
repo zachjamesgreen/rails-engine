@@ -13,17 +13,6 @@ RSpec.describe 'Merchants API' do
     @body = JSON.parse(response.body)
   end
 
-  it 'has correct attributes' do
-    get_merchants
-    expect(@body.has_key?('data')).to be true
-    data = @body['data'][0]
-    expect(data.has_key?('id')).to be true
-    expect(data['id']).to be_instance_of String
-    expect(data.has_key?('type')).to be true
-    expect(data.has_key?('attributes')).to be true
-    expect(data['attributes'].has_key?('name')).to be true
-  end
-
   it 'returns 20 merchants' do
     get_merchants
     expect(@body['data'].size).to eq(20)

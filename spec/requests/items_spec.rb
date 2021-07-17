@@ -10,23 +10,6 @@ RSpec.describe 'Items API' do
     expect(response.content_type).to eq 'application/json'
     @body = JSON.parse(response.body)
   end
-  
-  it 'returns items in the correct format' do
-    get_items
-    expect(@body.has_key?('data')).to be true
-    data = @body['data'][0]
-    expect(data.has_key?('id')).to be true
-    expect(data['id']).to be_instance_of String
-    expect(data.has_key?('type')).to eq true
-    expect(data['type']).to eq 'item'
-    expect(data.has_key?('attributes')).to be true
-    attrs = data['attributes']
-    expect(attrs.has_key?('name')).to be true
-    expect(attrs.has_key?('description')).to be true
-    expect(attrs.has_key?('unit_price')).to be true
-    expect(attrs['unit_price']).to be_instance_of Float
-    expect(attrs.has_key?('merchant_id')).to be true
-  end
 
   it 'returns 20 items' do
     items = Item.all

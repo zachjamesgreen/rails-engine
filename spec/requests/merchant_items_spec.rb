@@ -6,26 +6,6 @@ RSpec.describe 'Merchant Items API' do
     @merchants.first.items << create_list(:item, 5, merchant: @merchants.first)
   end
 
-  it 'returns merchant items in the correct format' do
-    id = @merchants[0].id
-    get "/api/v1/merchants/#{id}/items"
-    body = JSON.parse(response.body)
-    expect(response).to be_successful
-    expect(body.has_key?('data')).to be true
-    data = body['data']
-    expect(data[0].has_key?('id')).to be true
-    expect(data[0]['id']).to be_instance_of String
-    expect(data[0].has_key?('type')).to be true
-    expect(data[0]['type']).to eq 'item'
-    expect(data[0].has_key?('attributes')).to be true
-    attrs = data[0]['attributes']
-    expect(attrs.has_key?('name')).to be true
-    expect(attrs.has_key?('description')).to be true
-    expect(attrs.has_key?('unit_price')).to be true
-    expect(attrs['unit_price']).to be_instance_of Float
-    expect(attrs.has_key?('merchant_id')).to be true
-  end
-
   it 'returns merchant items' do
     id = @merchants[0].id
     items = @merchants[0].items
