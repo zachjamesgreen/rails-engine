@@ -4,8 +4,8 @@ class ApplicationRecord < ActiveRecord::Base
   def self.per(per_page)
     per_page ||= 20
     offset = @page * per_page
-    return [] if @page != 0 && (self.count / @page) < 1
-    return self.all if offset >= self.count
+    return [] if @page != 0 && (self.count / offset) < 1
+    return self.all if per_page >= self.count
     self.limit(per_page).offset(offset)
   end
 
