@@ -7,7 +7,13 @@ class Item < ApplicationRecord
   validates :merchant, presence: { message: 'Merchant not found. Can not create item without a merchant' }
   validates :unit_price, numericality: { message: 'Unit price must be numeric' }
 
-  def self.search(query)
-    where('name ILIKE ?', "%#{query}%")
+  def self.search_name(name)
+    where('name ILIKE ?', "%#{name}%")
+  end
+
+  def self.search_price(min:, max:)
+    min ||= 0
+    max = max.to_i == 0 ? Float::INFINITY : max.to_i
+    where(unit_price: min..max)
   end
 end
