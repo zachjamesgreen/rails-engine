@@ -49,9 +49,16 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def destroy
-    item = Item.find(params[:id])
+    begin
+      item = Item.find(params[:id])
     item.destroy
     head :no_content
+    rescue ActiveRecord::RecordNotFound
+      render json: {
+        message: 'Not Found',
+        errors: ["Can not find item with id => #{params[:id]}"]
+        }, status: 404
+    end
   end
 
   private
