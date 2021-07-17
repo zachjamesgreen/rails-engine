@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Merchants API' do
   before(:all) do
-    150.times { create(:merchant) }
+    create_list(:merchant, 150)
   end
 
   def get_merchants(page = 1, per_page = 20)

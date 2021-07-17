@@ -6,5 +6,15 @@ class Api::V1::MerchantsController < ApplicationController
     render json: Merchant.page(page).per(per_page)
   end
 
-  private
+  def show
+    begin
+      merchant = Merchant.find(params[:id])
+      render json: merchant
+    rescue ActiveRecord::RecordNotFound
+      render json: {
+        message: 'Not Found',
+        errors: ["Could not find Merchant by this id => #{params[:id]}"]
+      }, status: 404
+    end
+  end
 end
