@@ -22,7 +22,7 @@ RSpec.describe 'Merchants API' do
     merchant = Merchant.first
     get_merchants(page: '')
     res_merchant = @body['data'].first
-    expect(res_merchant['id'].to_i).to eq merchant.id
+    expect(res_merchant['id']).to eq merchant.id.to_s
   end
 
   it 'returns second set of 20 merchants for page 2' do
