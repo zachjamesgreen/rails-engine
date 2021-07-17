@@ -7,7 +7,14 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-    render json: Item.find(params[:id])
+    begin
+      render json: Item.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: {
+        message: 'Not Found',
+        errors: ["Could not find item with id => #{params[:id]}"]
+      }, status: 404
+    end
   end
 
   def create
