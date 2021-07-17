@@ -30,11 +30,21 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def update
-    item = Item.find(params[:id])
-    if item.update(item_params)
-      render json: item
-    else
-      render json: {errors: item.errors}, status: 422
+    begin
+      item = Item.find(params[:id])
+      if item.update(item_params)
+        render json: item
+      else
+        render json: {
+          message: 'Invalid',
+          errors: item.errors.map { |attr, msg| msg }
+          }, status: 422
+      end
+    rescue ActiveRecord::RecordNotFound
+      render json: {
+        message: 'Not Found',
+        errors: ["Can not find item with id => #{params[:id]}"]
+        }, status: 404
     end
   end
 
