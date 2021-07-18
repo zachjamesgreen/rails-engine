@@ -9,4 +9,34 @@ FactoryBot.define do
     unit_price { rand(10.0..100.0).round(2) }
     merchant
   end
+
+  factory :customer do
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+  end
+
+  factory :invoice do
+    customer
+    merchant
+    status { ['shipped', 'returned', 'packaged'].sample }
+  end
+
+  factory :transaction do
+    invoice
+    credit_card_number { Faker::Number.number(digits: 16) }
+    credit_card_expiration_date { Faker::Date.between(from: Date.today, to: Date.today + 30) }
+    result { ['failed', 'refunded', 'success'].sample }
+  end
+
+  factory :invoice_item do
+    item
+    invoice
+    quantity { rand(1..5) }
+    unit_price { item.unit_price }
+    # unit_price { rand(10.0..100.0).round(2) }
+  end
+
+  def merchant_with_revenue
+    merchant = FactoryBot.create(:merchant)
+  end
 end

@@ -40,6 +40,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def destroy
     item = Item.find(params[:id])
+    item.destroy_solo_invoices
     item.destroy
     head :no_content
   rescue ActiveRecord::RecordNotFound
