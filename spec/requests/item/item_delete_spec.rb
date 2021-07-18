@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe 'Delete Item API' do
   before(:each) { @item = create(:item) }
 
-  xit 'deletes an item' do
+  it 'deletes an item' do
     delete "/api/v1/items/#{@item.id}"
     expect(response.status).to eq(204)
     expect {Item.find(@item.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
 
-  xit 'returns error if item is not found' do
+  it 'returns error if item is not found' do
     delete "/api/v1/items/57"
     expect(response.status).to eq(404)
     body = JSON.parse(response.body)

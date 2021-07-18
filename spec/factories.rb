@@ -33,10 +33,5 @@ FactoryBot.define do
     invoice
     quantity { rand(1..5) }
     unit_price { item.unit_price }
-    # unit_price { rand(10.0..100.0).round(2) }
-  end
-
-  def merchant_with_revenue
-    merchant = FactoryBot.create(:merchant)
   end
 end
