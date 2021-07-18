@@ -5,7 +5,7 @@ RSpec.describe 'Edit Item API' do
 
   it 'returns error(s) if name is blank' do
     put "/api/v1/items/#{@item.id}", params: { name: '' }
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq 'Invalid'
     expect(body['errors']).to include 'Can not create item without a name'
@@ -13,7 +13,7 @@ RSpec.describe 'Edit Item API' do
 
   it 'returns error(s) if unit_price is blank' do
     put "/api/v1/items/#{@item.id}", params: { unit_price: '' }
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq 'Invalid'
     expect(body['errors']).to include 'Can not create item without a unit price'
@@ -21,7 +21,7 @@ RSpec.describe 'Edit Item API' do
 
   it 'returns error(s) if unit_price is not numeric' do
     put "/api/v1/items/#{@item.id}", params: { unit_price: 'fdsfds' }
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq 'Invalid'
     expect(body['errors']).to include 'Unit price must be numeric'
@@ -29,7 +29,7 @@ RSpec.describe 'Edit Item API' do
 
   it 'returns error(s) if merchant_id is blank' do
     put "/api/v1/items/#{@item.id}", params: { merchant_id: '' }
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq 'Invalid'
     expect(body['errors']).to include 'Can not create item without a merchant id'
@@ -37,7 +37,7 @@ RSpec.describe 'Edit Item API' do
 
   it 'returns error(s) if merchant cant be found' do
     put "/api/v1/items/#{@item.id}", params: { merchant_id: 546 }
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq 'Invalid'
     expect(body['errors']).to include 'Merchant not found. Can not create item without a merchant'

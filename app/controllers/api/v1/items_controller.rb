@@ -32,7 +32,7 @@ class Api::V1::ItemsController < ApplicationController
     if item.update(item_params)
       render json: item
     else
-      render json: { message: 'Invalid', errors: item.errors.map { |_attr, msg| msg } }, status: :unprocessable_entity
+      render json: { message: 'Invalid', errors: item.errors.map { |_attr, msg| msg } }, status: :bad_request
     end
   rescue ActiveRecord::RecordNotFound
     render json: { message: 'Not Found', errors: ["Can not find item with id => #{params[:id]}"] }, status: :not_found

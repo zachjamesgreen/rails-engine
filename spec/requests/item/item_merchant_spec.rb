@@ -7,7 +7,7 @@ RSpec.describe 'Item Merchant API' do
   end
 
   it 'returns merchant for given item' do
-    get "/api/v1/items/#{@item.id}/merchants"
+    get "/api/v1/items/#{@item.id}/merchant"
     expect(response.status).to eq(200)
     body = JSON.parse(response.body)
     data = body['data']
@@ -16,7 +16,7 @@ RSpec.describe 'Item Merchant API' do
   end
 
   it 'returns 404 for non-existent item' do
-    get '/api/v1/items/454/merchants'
+    get '/api/v1/items/454/merchant'
     expect(response.status).to eq(404)
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Not Found')

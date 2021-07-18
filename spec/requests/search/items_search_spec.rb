@@ -13,7 +13,7 @@ RSpec.describe 'Items Search API' do
 
   it 'only can accept either name or min/max price' do
     get '/api/v1/items/find_all', params: { name: 'item', max_price: 100 }
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Can not process')
     expect(body['errors']).to include('You must provide either name or min/max price')
@@ -21,7 +21,7 @@ RSpec.describe 'Items Search API' do
 
   it 'has numeric max price' do
     get '/api/v1/items/find_all', params: { max_price: 'fdf' }
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Can not process')
     expect(body['errors']).to include('max price must be numeric and not 0. you sent => fdf')
@@ -29,7 +29,7 @@ RSpec.describe 'Items Search API' do
 
   it 'max price is not 0' do
     get '/api/v1/items/find_all', params: { max_price: 0 }
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Can not process')
     expect(body['errors']).to include('max price must be numeric and not 0. you sent => 0')
@@ -37,7 +37,7 @@ RSpec.describe 'Items Search API' do
 
   it 'params can not be empty or missing' do
     get '/api/v1/items/find_all'
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Can not process')
     expect(body['errors']).to include('name must be present')
@@ -65,20 +65,18 @@ RSpec.describe 'Items Search API' do
     expect(body['data'].length).to eq(10)
   end
 
-  it 'returns 404 error if no items found by price' do # max price 9
+  it 'returns empty array if no items found by price' do # max price 9
     get '/api/v1/items/find_all', params: { max_price: 9 }
-    expect(response.status).to eq(404)
+    expect(response.status).to eq(200)
     body = JSON.parse(response.body)
-    expect(body['message']).to eq('Not Found')
-    expect(body['errors']).to include('Can not find items with price between 0 and 9')
+    expect(body['data']).to eq([])
   end
 
-  it 'returns 404 error if no items found by name' do
+  it 'returns empty array if no items found by name' do
     get '/api/v1/items/find_all', params: { name: 'fdf' }
-    expect(response.status).to eq(404)
+    expect(response.status).to eq(200)
     body = JSON.parse(response.body)
-    expect(body['message']).to eq('Not Found')
-    expect(body['errors']).to include('Can not find item with fdf in name')
+    expect(body['data']).to eq([])
   end
 
 end
