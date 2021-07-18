@@ -13,7 +13,7 @@ class Item < ApplicationRecord
 
   def self.search_price(min:, max:)
     min ||= 0
-    max = max.to_i == 0 ? Float::INFINITY : max.to_i
+    max = max.to_i.zero? ? Float::INFINITY : max.to_i
     where(unit_price: min..max)
   end
 end

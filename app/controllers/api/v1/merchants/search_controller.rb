@@ -1,22 +1,13 @@
 class Api::V1::Merchants::SearchController < ApplicationController
   def find
     if params[:name].present?
-      merchant = Merchant.search(params[:name]).first
-      if merchant
+      if (merchant = Merchant.search(params[:name]).first)
         render json: merchant
       else
-        render json: {
-          message: 'Not Found',
-          errors: ['No Merchant was found for your search => ' + params[:name]]
-        }, status: 404
+        not_found(["No Merchant was found for your search => #{params[:name]}"])
       end
     else
-      render json: {
-        message: 'Please provide a name',
-        errors: [
-          'Name must be present to search'
-        ]
-      }, status: :unprocessable_entity
+      cannot_process(['Name must be present to search'])
     end
   end
 
