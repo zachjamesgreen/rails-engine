@@ -20,18 +20,17 @@ RSpec.describe 'Merchant Search API' do
     expect(body['data']['attributes']['name']).to eq merchant.name
   end
 
-  it "returns error if no merchant is found" do
+  it "returns empty object if no merchant is found" do
     get '/api/v1/merchants/find', params: { name: 'fgh' }
-    expect(response.status).to eq(404)
+    expect(response.status).to eq(200)
     body = JSON.parse(response.body)
-    expect(body['message']).to eq('Not Found')
-    expect(body['errors']).to include('No Merchant was found for your search => fgh')
+    expect(body['data']).to eq({})
   end
 
   it 'returns 422 if name is blank' do
     get '/api/v1/merchants/find', params: { name: '' }
     body = JSON.parse(response.body)
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     expect(body['message']).to eq('Can not process')
     expect(body['errors']).to include('Name must be present to search')
   end
@@ -39,7 +38,7 @@ RSpec.describe 'Merchant Search API' do
   it 'returns 422 if name is not given' do
     get '/api/v1/merchants/find'
     body = JSON.parse(response.body)
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     expect(body['message']).to eq('Can not process')
     expect(body['errors']).to include('Name must be present to search')
   end

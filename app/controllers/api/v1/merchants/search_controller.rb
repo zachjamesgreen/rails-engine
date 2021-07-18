@@ -4,7 +4,8 @@ class Api::V1::Merchants::SearchController < ApplicationController
       if (merchant = Merchant.search(params[:name]).first)
         render json: merchant
       else
-        not_found(["No Merchant was found for your search => #{params[:name]}"])
+        # not_found(["No Merchant was found for your search => #{params[:name]}"])
+        render json: {data: {} }, status: :ok
       end
     else
       cannot_process(['Name must be present to search'])

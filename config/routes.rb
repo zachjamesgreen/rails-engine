@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       get 'items/find_all', to: 'items/search#find_all'
       resources :customers, only: [:index]
       resources :items, except: [:new, :edit] do
-        resources :merchants, module: 'items', only: [:index]
+        resources :merchant, module: 'items', only: [:index]
       end
       resources :merchants, only: [:index, :show] do
         resources :items, module: 'merchants', only: [:index]
