@@ -27,23 +27,23 @@ RSpec.describe Item, type: :model do
     context 'revenue' do
       it 'revenue' do
         item = create_item('shipped', 'success')
-        expect(item.revenue).to eq(100)
-        expect(item.revenue).to be_instance_of(Float)
+        expect(item.revenue_total).to eq(100)
+        expect(item.revenue_total).to be_instance_of(Float)
       end
   
       it 'doesnt include not shipped invoices' do
         item = create_item('returned', 'success')
-        expect(item.revenue).to eq(0)
+        expect(item.revenue_total).to eq(0)
       end
   
       it 'doesnt include unsuccessful transactions' do
         item = create_item('shipped', 'failed')
-        expect(item.revenue).to eq(0)
+        expect(item.revenue_total).to eq(0)
       end
   
       it 'doesnt include both unsuccessful transactions and not shipped invoices' do
         item = create_item('packaged', 'failed')
-        expect(item.revenue).to eq(0)
+        expect(item.revenue_total).to eq(0)
       end
     end
   end

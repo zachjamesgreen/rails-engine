@@ -19,7 +19,7 @@ RSpec.describe 'Routes for BI - ItemsRankedRevenue' do
       body = JSON.parse(response.body)
       data = body['data']
       expect(data.size).to eq(10)
-      expect(data[0]['attributes']['revenue']).to eq(items.last.revenue)
+      expect(data[0]['attributes']['revenue']).to eq(items.last.revenue_total)
     end
   
   
