@@ -4,6 +4,7 @@ class ItemSerializer < ActiveModel::Serializer
   attribute :revenue, if: :revenue_present?
 
   def revenue_present?
-    object.revenue.present?
+    object.respond_to? :revenue
+    # object.revenue.present?
   end
 end
