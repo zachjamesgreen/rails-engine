@@ -21,9 +21,9 @@ class Item < ApplicationRecord
   def self.ranked_revenue(quantity = 10)
     all
       .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
-      .joins(invoices: :transactions)
-      .joins(:invoice_items)
-      .where("transactions.result = 'success' and invoices.status = 'shipped'")
+      .joins('INNER JOIN invoice_items ON invoice_items.item_id = items.id')
+      .joins("INNER JOIN invoices ON invoices.id = invoice_items.invoice_id and invoices.status = 'shipped'")
+      .joins("INNER JOIN transactions ON transactions.invoice_id = invoices.id and transactions.result = 'success'")
       .group('items.id')
       .order('revenue desc')
       .limit(quantity)
