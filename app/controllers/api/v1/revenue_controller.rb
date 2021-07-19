@@ -16,7 +16,7 @@ class Api::V1::RevenueController < ApplicationController
       cannot_process(['quantity must be an integer and not 0']) and return
     end
     quantity = params[:quantity] || 10
-    render json: Item.ranked_revenue(quantity), type: 'item_revenue'
+    render json: Item.ranked_revenue(quantity), each_serializer: ItemRevenueSerializer
   end
 
   def unshipped_revenue
@@ -24,7 +24,7 @@ class Api::V1::RevenueController < ApplicationController
       cannot_process(['quantity must be an integer and not 0']) and return
     end
     quantity = params[:quantity] || 10
-    render json: Invoice.ranked_revenue_unshipped(quantity)
+    render json: Invoice.ranked_revenue_unshipped(quantity), each_serializer: InvoiceUnshippedRevenueSerializer
   end
 
   def weekly_revenue

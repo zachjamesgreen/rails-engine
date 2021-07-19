@@ -18,10 +18,10 @@ RSpec.describe 'Routes for BI - ItemsRankedRevenue' do
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
       data = body['data']
+      expect(data[0]['type']).to eq 'item_revenue'
       expect(data.size).to eq(10)
       expect(data[0]['attributes']['revenue']).to eq(items.last.revenue_total)
     end
-  
   
     it 'returns given # of items' do
       num = rand(0..50)
@@ -32,7 +32,6 @@ RSpec.describe 'Routes for BI - ItemsRankedRevenue' do
       data = body['data']
       expect(data.size).to eq(num)
     end
-  
   
     it '# must be numeric and not 0' do
       get '/api/v1/revenue/items', params: { quantity: 'asda' }
@@ -46,7 +45,7 @@ RSpec.describe 'Routes for BI - ItemsRankedRevenue' do
   context 'potential revenue' do
     it 'returns potential revenue. items that are packed and transaction is successful' do
       merchant = create(:merchant)
-      items = create_list(:item, 50, merchant: merchant, unit_price: 10)
+      items = create_list(:item, 12, merchant: merchant, unit_price: 10)
       items.each_with_index do |item, idx|
         invoice = create(:invoice, merchant: merchant, status: 'packaged')
         create(:invoice_item, invoice: invoice, item: item, quantity: idx+10)
@@ -57,8 +56,9 @@ RSpec.describe 'Routes for BI - ItemsRankedRevenue' do
       expect(response.status).to eq(200)
       body = JSON.parse(response.body)
       data = body['data']
+      expect(data[0]['type']).to eq 'unshipped_order'
       expect(data.size).to eq(10)
-      expect(data[0]['attributes']['potential_revenue']).to eq(invoices.last.potential_revenue)
+      expect(data[0]['attributes']['potential_revenue']).to eq(invoices.first.potential_revenue)
     end
   
     it '# must be numeric and not 0' do
