@@ -18,10 +18,40 @@ class Item < ApplicationRecord
     where(unit_price: min..max)
   end
 
+  def self.ranked_revenue(quantity = 10)
+    all
+      .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
+      .joins(invoices: :transactions)
+      .joins(:invoice_items)
+      .where("transactions.result = 'success' and invoices.status = 'shipped'")
+      .group('items.id')
+      .order('revenue desc')
+      .limit(quantity)
+  end
+
+  def self.ranked_revenue_unshipped(quantity = 10)
+    all
+      .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
+      .joins(invoices: :transactions)
+      .joins(:invoice_items)
+      .where("transactions.result = 'success' and invoices.status = 'packaged'")
+      .group('items.id')
+      .order('revenue desc')
+      .limit(quantity)
+  end
+
   def destroy_solo_invoices
     invoices.each do |inv|
       inv.destroy if inv.items.size == 1
     end
+  end
+
+  def revenue
+    invoices
+      .joins(:transactions)
+      .joins(:invoice_items)
+      .where("transactions.result = 'success' and invoices.status = 'shipped'")
+      .sum('invoice_items.quantity * invoice_items.unit_price')
   end
 
 end
