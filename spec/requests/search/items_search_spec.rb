@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Items Search API' do
   before(:all) do
     10.times do |i|
-      create(:item, name: "Item #{rand(0..100)}")
-      create(:item, unit_price: rand(1000.0..10000.0))
+      create(:item, name: "Item #{rand(0..100)}", description: "Low priced object #{i}")
+      create(:item, unit_price: rand(1000.0..10000.0), description: "High priced thing #{i}")
     end
     # items_under_100 = create_list(:item, 10, name: "Item #{rand(0..100)}")
     # items_over_1000 = create_list(:item, 10, unit_price: rand(1000.0..10000.0))
@@ -46,6 +46,13 @@ RSpec.describe 'Items Search API' do
 
   it "returns 10 items when searching for 'item'" do
     get '/api/v1/items/find_all', params: { name: 'item' }
+    expect(response.status).to eq(200)
+    body = JSON.parse(response.body)
+    expect(body['data'].length).to eq(10)
+  end
+
+  it 'returns items with substring `hing` in name and/or description' do
+    get '/api/v1/items/find_all', params: { name: 'hing' }
     expect(response.status).to eq(200)
     body = JSON.parse(response.body)
     expect(body['data'].length).to eq(10)
