@@ -9,7 +9,6 @@ Rails.application.routes.draw do
         get '/unshipped', to: 'revenue#unshipped_revenue'
         get '/weekly', to: 'revenue#weekly_revenue'
       end
-      resources :customers, only: [:index]
       resources :items, except: [:new, :edit] do
         resources :merchant, module: 'items', only: [:index]
       end
