@@ -46,7 +46,7 @@ class Item < ApplicationRecord
     end
   end
 
-  def revenue
+  def revenue_total
     invoices
       .joins(:transactions)
       .joins(:invoice_items)
