@@ -14,4 +14,8 @@ class ApplicationController < ActionController::API
       errors: errors
     }, status: :not_found
   end
+
+  def param_is_integer(param)
+    param && param.to_i <= 0
+  end
 end
