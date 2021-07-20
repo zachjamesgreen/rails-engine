@@ -18,6 +18,7 @@ FactoryBot.define do
   factory :invoice do
     customer
     merchant
+    created_at { Faker::Date.between(from: 0.days.ago, to: 60.days.ago) }
     status { ['shipped', 'returned', 'packaged'].sample }
   end
 

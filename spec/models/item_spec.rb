@@ -46,5 +46,23 @@ RSpec.describe Item, type: :model do
         expect(item.revenue_total).to eq(0)
       end
     end
+
+    context 'ranked_revenue_unshipped' do
+      it 'returns ranked_revenue_unshipped' do
+        items = create_list(:item, 20, unit_price: 10).each_with_index do |item, idx|
+          invoice = create(:invoice, status: 'packaged')
+          create(:invoice_item, item: item, invoice: invoice, quantity: 1+idx)
+          create(:transaction, invoice: invoice, result: 'success')
+        end
+
+        ranked_revenue = Item.ranked_revenue_unshipped
+        expect(ranked_revenue.to_a.size).to eq(10)
+        expect(ranked_revenue.first.revenue).to eq(200)
+        expect(ranked_revenue.last.revenue).to eq(110)
+        ranked_revenue = Item.ranked_revenue_unshipped(15)
+        expect(ranked_revenue.to_a.size).to eq(15)
+
+      end
+    end
   end
 end

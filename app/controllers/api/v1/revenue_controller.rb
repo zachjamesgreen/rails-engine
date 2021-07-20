@@ -27,6 +27,18 @@ class Api::V1::RevenueController < ApplicationController
   end
 
   def weekly_revenue
-    render json: Invoice.weekly_revenue, each_serializer: InvoiceWeeklyRevenueSerializer
+    
+    weekly = Invoice.weekly_revenue.map do |week|
+      {
+        id: nil,
+        type: 'weekly_revenue',
+        attributes: {
+          week: week.week,
+          revenue: week.revenue
+        }
+      }
+    end
+    render json: { data: weekly }
+    # render json: Invoice.weekly_revenue, each_serializer: InvoiceWeeklyRevenueSerializer
   end
 end
