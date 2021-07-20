@@ -9,6 +9,7 @@ class Item < ApplicationRecord
   validates :unit_price, numericality: { message: 'Unit price must be numeric' }
 
   def self.search_name(name)
+    # where('name ILIKE ?', "%#{name}%")
     where('name ILIKE ? or description ILIKE ?', "%#{name}%", "%#{name}%")
   end
 

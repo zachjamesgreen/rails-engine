@@ -20,6 +20,6 @@ RSpec.describe 'Item Merchant API' do
     expect(response.status).to eq(404)
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Not Found')
-    expect(body['errors']).to include('Can not find item with id => 454')
+    expect(body['error']).to include('Can not find item with id => 454')
   end
 end

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
   def cannot_process(errors)
     render json: {
       message: 'Can not process',
-      errors: errors
+      error: errors
     }, status: :bad_request
   end
 
@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
   def not_found(errors)
     render json: {
       message: 'Not Found',
-      errors: errors
+      error: errors
     }, status: :not_found
   end
 

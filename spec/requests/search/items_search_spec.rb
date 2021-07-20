@@ -16,7 +16,7 @@ RSpec.describe 'Items Search API' do
     expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Can not process')
-    expect(body['errors']).to include('You must provide either name or min/max price')
+    expect(body['error']).to include('You must provide either name or min/max price')
   end
 
   it 'has numeric max price' do
@@ -24,7 +24,7 @@ RSpec.describe 'Items Search API' do
     expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Can not process')
-    expect(body['errors']).to include('max price must be numeric and not 0. you sent => fdf')
+    expect(body['error']).to include('max price must be numeric and not 0. you sent => fdf')
   end
 
   it 'max price is not 0' do
@@ -32,7 +32,7 @@ RSpec.describe 'Items Search API' do
     expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Can not process')
-    expect(body['errors']).to include('max price must be numeric and not 0. you sent => 0')
+    expect(body['error']).to include('max price must be numeric and not 0. you sent => 0')
   end
 
   it 'params can not be empty or missing' do
@@ -40,8 +40,8 @@ RSpec.describe 'Items Search API' do
     expect(response.status).to eq(400)
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Can not process')
-    expect(body['errors']).to include('name must be present')
-    expect(body['errors']).to include('min/max price must be present')
+    expect(body['error']).to include('name must be present')
+    expect(body['error']).to include('min/max price must be present')
   end
 
   it "returns 10 items when searching for 'item'" do

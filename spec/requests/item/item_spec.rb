@@ -21,6 +21,6 @@ RSpec.describe 'Item API' do
     expect(response.status).to eq 404
     body = JSON.parse(response.body)
     expect(body['message']).to eq 'Not Found'
-    expect(body['errors']).to match_array 'Could not find item with id => 0'
+    expect(body['error']).to match_array 'Could not find item with id => 0'
   end
 end

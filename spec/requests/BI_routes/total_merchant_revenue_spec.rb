@@ -38,7 +38,7 @@ RSpec.describe "Routes: BI_routes" do
     expect(response).to be_not_found
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Not Found')
-    expect(body['errors']).to include('Can not find merchant with id => 345')
+    expect(body['error']).to include('Can not find merchant with id => 345')
   end
 
   it 'returns 400 error if id is string' do
@@ -46,6 +46,6 @@ RSpec.describe "Routes: BI_routes" do
     expect(response).to be_bad_request
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Can not process')
-    expect(body['errors']).to include('id must be an integer')
+    expect(body['error']).to include('id must be an integer')
   end
 end

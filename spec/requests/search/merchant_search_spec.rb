@@ -32,7 +32,7 @@ RSpec.describe 'Merchant Search API' do
     body = JSON.parse(response.body)
     expect(response.status).to eq(400)
     expect(body['message']).to eq('Can not process')
-    expect(body['errors']).to include('Name must be present to search')
+    expect(body['error']).to include('Name must be present to search')
   end
 
   it 'returns 422 if name is not given' do
@@ -40,7 +40,7 @@ RSpec.describe 'Merchant Search API' do
     body = JSON.parse(response.body)
     expect(response.status).to eq(400)
     expect(body['message']).to eq('Can not process')
-    expect(body['errors']).to include('Name must be present to search')
+    expect(body['error']).to include('Name must be present to search')
   end
 
   it "finds 3 merchants with 'ser'"

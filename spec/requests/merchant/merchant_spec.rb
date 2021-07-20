@@ -27,6 +27,6 @@ RSpec.describe 'Merchant API' do
     expect(response).to be_not_found
     body = JSON.parse(response.body)
     expect(body['message']).to eq 'Not Found'
-    expect(body['errors']).to match_array ['Could not find Merchant by this id => 0']
+    expect(body['error']).to match_array ['Could not find Merchant by this id => 0']
   end
 end

@@ -38,7 +38,7 @@ RSpec.describe 'Routes for BI - ItemsRankedRevenue' do
       expect(response.status).to eq(400)
       body = JSON.parse(response.body)
       expect(body['message']).to eq('Can not process')
-      expect(body['errors']).to include('quantity must be an integer and not 0')
+      expect(body['error']).to include('quantity must be an integer and not 0')
     end
   end
 
@@ -66,7 +66,7 @@ RSpec.describe 'Routes for BI - ItemsRankedRevenue' do
       expect(response.status).to eq(400)
       body = JSON.parse(response.body)
       expect(body['message']).to eq('Can not process')
-      expect(body['errors']).to include('quantity must be an integer and not 0')
+      expect(body['error']).to include('quantity must be an integer and not 0')
     end
   end
 

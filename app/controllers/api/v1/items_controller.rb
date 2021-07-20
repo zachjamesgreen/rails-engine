@@ -9,10 +9,7 @@ class Api::V1::ItemsController < ApplicationController
   def show
     render json: Item.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render json: {
-      message: 'Not Found',
-      errors: ["Could not find item with id => #{params[:id]}"]
-    }, status: :not_found
+    not_found(["Could not find item with id => #{params[:id]}"])
   end
 
   def create
@@ -20,10 +17,7 @@ class Api::V1::ItemsController < ApplicationController
     if item.save
       render json: item, status: :created
     else
-      render json: {
-        message: 'Invalid',
-        errors: item.errors.map { |_attr, msg| msg }
-      }, status: :unprocessable_entity
+      cannot_process(item.errors.map { |_attr, msg| msg })
     end
   end
 
@@ -32,10 +26,10 @@ class Api::V1::ItemsController < ApplicationController
     if item.update(item_params)
       render json: item
     else
-      render json: { message: 'Invalid', errors: item.errors.map { |_attr, msg| msg } }, status: :bad_request
+      cannot_process(item.errors.map { |_attr, msg| msg })
     end
   rescue ActiveRecord::RecordNotFound
-    render json: { message: 'Not Found', errors: ["Can not find item with id => #{params[:id]}"] }, status: :not_found
+    not_found(["Can not find item with id => #{params[:id]}"])
   end
 
   def destroy
@@ -44,10 +38,7 @@ class Api::V1::ItemsController < ApplicationController
     item.destroy
     head :no_content
   rescue ActiveRecord::RecordNotFound
-    render json: {
-      message: 'Not Found',
-      errors: ["Can not find item with id => #{params[:id]}"]
-    }, status: :not_found
+    not_found(["Can not find item with id => #{params[:id]}"])
   end
 
   private

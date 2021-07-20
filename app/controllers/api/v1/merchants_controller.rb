@@ -10,9 +10,6 @@ class Api::V1::MerchantsController < ApplicationController
     merchant = Merchant.find(params[:id])
     render json: merchant
   rescue ActiveRecord::RecordNotFound
-    render json: {
-      message: 'Not Found',
-      errors: ["Could not find Merchant by this id => #{params[:id]}"]
-    }, status: :not_found
+    not_found(["Could not find Merchant by this id => #{params[:id]}"])
   end
 end

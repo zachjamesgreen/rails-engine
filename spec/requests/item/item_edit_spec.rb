@@ -7,40 +7,40 @@ RSpec.describe 'Edit Item API' do
     put "/api/v1/items/#{@item.id}", params: { name: '' }
     expect(response.status).to eq(400)
     body = JSON.parse(response.body)
-    expect(body['message']).to eq 'Invalid'
-    expect(body['errors']).to include 'Can not create item without a name'
+    expect(body['message']).to eq 'Can not process'
+    expect(body['error']).to include 'Can not create item without a name'
   end
 
   it 'returns error(s) if unit_price is blank' do
     put "/api/v1/items/#{@item.id}", params: { unit_price: '' }
     expect(response.status).to eq(400)
     body = JSON.parse(response.body)
-    expect(body['message']).to eq 'Invalid'
-    expect(body['errors']).to include 'Can not create item without a unit price'
+    expect(body['message']).to eq 'Can not process'
+    expect(body['error']).to include 'Can not create item without a unit price'
   end
 
   it 'returns error(s) if unit_price is not numeric' do
     put "/api/v1/items/#{@item.id}", params: { unit_price: 'fdsfds' }
     expect(response.status).to eq(400)
     body = JSON.parse(response.body)
-    expect(body['message']).to eq 'Invalid'
-    expect(body['errors']).to include 'Unit price must be numeric'
+    expect(body['message']).to eq 'Can not process'
+    expect(body['error']).to include 'Unit price must be numeric'
   end
 
   it 'returns error(s) if merchant_id is blank' do
     put "/api/v1/items/#{@item.id}", params: { merchant_id: '' }
     expect(response.status).to eq(400)
     body = JSON.parse(response.body)
-    expect(body['message']).to eq 'Invalid'
-    expect(body['errors']).to include 'Can not create item without a merchant id'
+    expect(body['message']).to eq 'Can not process'
+    expect(body['error']).to include 'Can not create item without a merchant id'
   end
 
   it 'returns error(s) if merchant cant be found' do
     put "/api/v1/items/#{@item.id}", params: { merchant_id: 546 }
     expect(response.status).to eq(400)
     body = JSON.parse(response.body)
-    expect(body['message']).to eq 'Invalid'
-    expect(body['errors']).to include 'Merchant not found. Can not create item without a merchant'
+    expect(body['message']).to eq 'Can not process'
+    expect(body['error']).to include 'Merchant not found. Can not create item without a merchant'
   end
 
   it 'returns error if item cant be found' do
@@ -48,7 +48,7 @@ RSpec.describe 'Edit Item API' do
     expect(response.status).to eq(404)
     body = JSON.parse(response.body)
     expect(body['message']).to eq 'Not Found'
-    expect(body['errors']).to include 'Can not find item with id => 57'
+    expect(body['error']).to include 'Can not find item with id => 57'
   end
 
   it 'edits and returns the item' do

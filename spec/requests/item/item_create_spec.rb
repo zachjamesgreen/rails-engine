@@ -4,12 +4,12 @@ RSpec.describe 'Create Item API' do
   before(:all) { @merchant = create(:merchant) }
   it 'must have merchant_id, name, and unit_price' do
     post '/api/v1/items', params: {}
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
-    expect(body['message']).to eq 'Invalid'
-    expect(body['errors']).to include('Can not create item without a merchant id')
-    expect(body['errors']).to include('Can not create item without a name')
-    expect(body['errors']).to include('Can not create item without a unit price')
+    expect(body['message']).to eq 'Can not process'
+    expect(body['error']).to include('Can not create item without a merchant id')
+    expect(body['error']).to include('Can not create item without a name')
+    expect(body['error']).to include('Can not create item without a unit price')
   end
 
   it 'returns error if unit_price is not numeric' do
@@ -18,10 +18,10 @@ RSpec.describe 'Create Item API' do
       name: 'test',
       unit_price: 'test'
     }
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
-    expect(body['message']).to eq 'Invalid'
-    expect(body['errors']).to match_array(['Unit price must be numeric'])
+    expect(body['message']).to eq 'Can not process'
+    expect(body['error']).to match_array(['Unit price must be numeric'])
     expect(Item.count).to eq 0
   end
 
@@ -31,10 +31,10 @@ RSpec.describe 'Create Item API' do
       name: 'test',
       unit_price: 57.05
     }
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(400)
     body = JSON.parse(response.body)
-    expect(body['message']).to eq 'Invalid'
-    expect(body['errors']).to include('Merchant not found. Can not create item without a merchant')
+    expect(body['message']).to eq 'Can not process'
+    expect(body['error']).to include('Merchant not found. Can not create item without a merchant')
     expect(Item.count).to eq 0
   end
 

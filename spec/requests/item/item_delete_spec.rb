@@ -14,7 +14,7 @@ RSpec.describe 'Delete Item API' do
     expect(response.status).to eq(404)
     body = JSON.parse(response.body)
     expect(body['message']).to eq('Not Found')
-    expect(body['errors']).to include('Can not find item with id => 57')
+    expect(body['error']).to include('Can not find item with id => 57')
   end
 
   it 'deletes invoices if its the only item on it' do
