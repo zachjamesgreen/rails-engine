@@ -22,12 +22,12 @@ class Api::V1::RevenueController < ApplicationController
     if params[:quantity] && params[:quantity].to_i <= 0
       cannot_process(['quantity must be an integer and not 0']) and return
     end
+
     quantity = params[:quantity] || 10
     render json: Invoice.ranked_revenue_unshipped(quantity), each_serializer: InvoiceUnshippedRevenueSerializer
   end
 
   def weekly_revenue
-    
     weekly = Invoice.weekly_revenue.map do |week|
       {
         id: nil,

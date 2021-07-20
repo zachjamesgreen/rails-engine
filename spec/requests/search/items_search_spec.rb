@@ -6,9 +6,6 @@ RSpec.describe 'Items Search API' do
       create(:item, name: "Item #{rand(0..100)}", description: "Low priced object #{i}")
       create(:item, unit_price: rand(1000.0..10000.0), description: "High priced thing #{i}")
     end
-    # items_under_100 = create_list(:item, 10, name: "Item #{rand(0..100)}")
-    # items_over_1000 = create_list(:item, 10, unit_price: rand(1000.0..10000.0))
-    # items_over_1000 = rand(1000.0..10000.0).take(10).map { |u_p| create(:item, unit_price: u_p) }
   end
 
   it 'only can accept either name or min/max price' do

@@ -54,5 +54,4 @@ class Item < ApplicationRecord
       .where("transactions.result = 'success' and invoices.status = 'shipped'")
       .sum('invoice_items.quantity * invoice_items.unit_price')
   end
-
 end
