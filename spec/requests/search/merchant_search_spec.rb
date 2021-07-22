@@ -42,6 +42,4 @@ RSpec.describe 'Merchant Search API' do
     expect(body['message']).to eq('Can not process')
     expect(body['error']).to include('Name must be present to search')
   end
-
-  it "finds 3 merchants with 'ser'"
 end

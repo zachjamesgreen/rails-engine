@@ -1,5 +1,5 @@
 class Api::V1::Items::SearchController < ApplicationController
-  def find; end
+  # def find; end
 
   def find_all
     check_for_incompatible_params; return if performed?
@@ -15,7 +15,7 @@ class Api::V1::Items::SearchController < ApplicationController
       # checks to see if maxprice is not 0
       check_max_price; return if performed?
 
-      items = Item.search_price(min: params[:min_price].to_i, max: params[:max_price])
+      items = Item.search_price(min: params[:min_price].to_i, max: params[:max_price].to_i)
       render json: { data: [] } and return if items.empty?
 
       render json: items and return

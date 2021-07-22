@@ -10,6 +10,4 @@ class Api::V1::Merchants::SearchController < ApplicationController
       cannot_process(['Name must be present to search'])
     end
   end
-
-  def find_all; end
 end
